@@ -1,0 +1,15 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+export default function HomePage(): JSX.Element {
+  return (
+    <section className="container">
+      <h1>Home Page</h1>
+      <p>This is the HomePage.</p>
+
+      <Link to="./" className="button">
+        Home
+      </Link>
+    </section>
+  );
+}
