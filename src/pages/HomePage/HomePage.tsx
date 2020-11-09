@@ -7,8 +7,8 @@ export default function HomePage(): JSX.Element {
       <h1>Home Page</h1>
       <p>This is the HomePage.</p>
 
-      <Link to="./" className="button">
-        Home
+      <Link to="/page-two" className="button">
+        Page Two
       </Link>
     </section>
   );
