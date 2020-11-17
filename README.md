@@ -8,5 +8,7 @@ This is currently a playground app made from:
 ## To Use
 
 * `git clone git@github.com:timhc22/web3-example-app.git`
+* Use a local blockchain such as Ganache (https://www.trufflesuite.com/ganache), to which this app will connect (make sure the port is the same as in truffle-config.js)
+* Have a wallet connected to your browser (https://metamask.io/), this app will connect to the local blockchain so you won't spend real funds
 * `npm run truffle-compile; npm run truffle-deploy`
 * `cd ./client; npm install; npm start`
