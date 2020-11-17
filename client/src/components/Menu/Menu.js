@@ -3,7 +3,7 @@ import './Menu.scss';
 import { Link } from "react-router-dom";
 import { AppBar, Toolbar } from '@material-ui/core';
 
-function Menus(props: any): JSX.Element {
+function Menus(props) {
   return (
     <AppBar position="static">
       <Toolbar>

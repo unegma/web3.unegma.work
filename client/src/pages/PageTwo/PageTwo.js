@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function PageTwo(): JSX.Element {
+function PageTwo() {
   return (
     <section className="container">
       <h1>Page Two</h1>
@@ -13,3 +13,5 @@ export default function PageTwo(): JSX.Element {
     </section>
   );
 }
+
+export default PageTwo;

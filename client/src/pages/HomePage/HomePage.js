@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function HomePage(): JSX.Element {
+function HomePage() {
   return (
     <section className="container">
       <h1>Home Page</h1>
@@ -13,3 +13,5 @@ export default function HomePage(): JSX.Element {
     </section>
   );
 }
+
+export default HomePage;
