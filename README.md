@@ -12,3 +12,4 @@ This is currently a playground app made from:
 * Have a wallet connected to your browser (https://metamask.io/), this app will connect to the local blockchain so you won't spend real funds
 * `npm run truffle-compile; npm run truffle-deploy`
 * `cd ./client; npm install; npm start`
+* If there are any problems with migrating the contracts, try `truffle compile --all` or `truffle migrate --reset`
