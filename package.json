@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "truffle-compile": "truffle compile",
     "truffle-deploy": "truffle migrate",
-    "truffle-console": "truffle console"
+    "truffle-console": "truffle console",
+    "run": "cd client; npm start"
   },
   "repository": {
     "type": "git",
