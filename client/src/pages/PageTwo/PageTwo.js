@@ -7,6 +7,7 @@ function PageTwo() {
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState(null);
   const [contract, setContract] = useState(null);
+  const [message, setMessage] = useState("Loading...");
 
   useEffect(() => {
 
@@ -15,7 +16,7 @@ function PageTwo() {
      * example of interacting with the contract's methods.
      * @returns {Promise<void>}
      */
-    async function setUp() { // until 'suspense' https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
+    const setUp = async () => { // todo until 'suspense' https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
       try {
         // Get network provider and web3 instance.
         const web3 = await getWeb3();
@@ -45,24 +46,23 @@ function PageTwo() {
 
         // Update state with the result.
         setStorageValue(response);
+        setMessage("Done");
 
       } catch (error) {
         // Catch any errors for any of the above operations.
-        alert(
-            `Failed to load web3, accounts, or contract. Check console for details.`,
-        );
+        setMessage(error.message);
         console.error(error);
       }
     }
     setUp();
 
-  }, []);
+  }, [setMessage, setWeb3, setStorageValue, setContract, setAccounts]);
 
   if (!web3) {
     return (
         <div>
           <p>Need to hard reload on inital load (for now)</p>
-          <p>Loading Web3, accounts, and contract...</p>
+          <p>{message}</p>
         </div>
     );
   }
@@ -72,7 +72,7 @@ function PageTwo() {
       <p>Need to hard reload for now.</p>
 
       <div>The stored value is: {storageValue}</div>
-
+      <p>{message}</p>
     </section>
   );
 }
