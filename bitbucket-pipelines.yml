@@ -17,6 +17,7 @@ pipelines:
           caches:
             - node
           script:
+            - echo "$MNEMONIC" >> ".secret"
             - npm install; npm install truffle
             - npm run-script truffle-compile
             - cd client; npm install
