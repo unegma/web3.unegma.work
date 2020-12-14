@@ -10,7 +10,14 @@ import Web3 from "web3";
 const getWeb3 = (host, token) =>
   new Promise((resolve, reject) => {
     // Wait for loading completion to avoid race conditions with web3 injection timing.
-    window.addEventListener("load", async () => {
+
+    /**
+     * Abstract away so that can check if page is loaded or not (load will be true when navigating with React)
+     * There may be a better way to do this, and it might not be needed in later versions of MetaMask
+     *
+     * @returns {Promise<void>}
+     */
+    const get = async () => {
       if (host) {
         try {
           // e.g. "https://rinkeby.infura.io/YOUR_TOKEN_HERE"
@@ -44,13 +51,24 @@ const getWeb3 = (host, token) =>
       // Fallback to localhost; use dev console port by default...
       else {
         const provider = new Web3.providers.HttpProvider(
-          "http://127.0.0.1:7545" // todo move to .env
+            "http://127.0.0.1:7545" // todo move to .env
         );
         const web3 = new Web3(provider);
         console.log("No web3 instance injected, using Local web3.");
         resolve(web3);
       }
-    });
-  });
+    }
+
+    // there is probably a better way of doing this than this #still learning
+    if (document.readyState == 'complete') {
+      return get();
+    } else {
+      window.addEventListener("load", () => {
+        return get();
+      });
+    }
+
+
+  })
 
 export default getWeb3;
