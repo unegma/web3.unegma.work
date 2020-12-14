@@ -1,0 +1,21 @@
+# This is a sample build configuration for Javascript (Node.js).
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# If CI is not set to false in environment variables, then warnings will be treated as errors
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: rhinogram/node-awscli
+options:
+  docker: true
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Deploy to production
+          deployment: production
+          caches:
+            - node
+          script:
+            - npm install; cd client; npm install
+            - npm run-script build && aws s3 cp ./build s3://web3.unegma.com --recursive

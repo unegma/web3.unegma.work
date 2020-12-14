@@ -12,7 +12,8 @@
     "truffle-deploy": "truffle migrate",
     "truffle-compile-deploy": "truffle compile; truffle migrate",
     "truffle-console": "truffle console",
-    "start": "cd client; npm start"
+    "start": "cd client; npm start",
+    "deploy": "cd client; npm run-script build"
   },
   "repository": {
     "type": "git",
