@@ -21,3 +21,4 @@ This is currently a playground app made from:
 * 1337 is the chain ID
 * copy private key from ganache into a wallet (e.g. metamask) under import account
 * have to sometimes go into metamask and 'connect' the account so that that one is used
+
