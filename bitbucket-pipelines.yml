@@ -17,5 +17,7 @@ pipelines:
           caches:
             - node
           script:
-            - npm install; cd client; npm install
+            - npm install
+            - npm run-script truffle-compile
+            - cd client; npm install
             - npm run-script build && aws s3 cp ./build s3://web3.unegma.com --recursive
