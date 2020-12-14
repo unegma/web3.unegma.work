@@ -3,6 +3,9 @@
 # Only use spaces to indent your .yml configuration.
 # If CI is not set to false in environment variables, then warnings will be treated as errors
 # -----
+#
+# TODO NEEDS A BETTER FLOW AS DEPLOYS NEW CONTRACT TO RINKEBY ON EACH COMMIT PUSH (still learning)
+#
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: rhinogram/node-awscli
 options:
@@ -20,5 +23,6 @@ pipelines:
             - echo "$MNEMONIC" >> ".secret"
             - npm install; npm install truffle
             - npm run-script truffle-compile
+            - npm run-script deploy-rinkeby
             - cd client; npm install
             - npm run-script build && aws s3 cp ./build s3://web3.unegma.com --recursive
