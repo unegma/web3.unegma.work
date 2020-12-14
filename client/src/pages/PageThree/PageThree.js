@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { initialize } from 'zokrates-js/node';
+import { initialize } from 'zokrates-js';
 import { useAsync } from 'react-async';
 
 // const getProvider = async () => {
