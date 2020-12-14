@@ -1,81 +1,68 @@
-import React, {useState} from 'react';
-import { initialize } from 'zokrates-js';
-import { useAsync } from 'react-async';
-
-// const getProvider = async () => {
-//   await initialize();
-// }
+import React, {useEffect, useState} from 'react';
+import {initialize} from 'zokrates-js';
 
 function PageThree() {
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState("Loading...");
+  const [proof, setProof] = useState(undefined);
 
-  // Zokrates example code
-  // const {zokratesProvider, error, isLoading} = useAsync({promiseFn: getProvider});
-  // if (isLoading) return "Loading..."
-  // if (error) return `Something went wrong: ${error.message}`
+  useEffect(() => {
+    const getProvider = async () => {
 
-  // try {
-    // const source = "def main(private field a) -> field: return a * a";
-    // console.log(source);
-    // console.log(zokratesProvider);
-    // // compilation
-    // const artifacts = zokratesProvider.compile(source);
-    //
-    // // computation
-    // const {witness, output} = zokratesProvider.computeWitness(artifacts, ["2"]);
-    //
-    // // run setup
-    // const keypair = zokratesProvider.setup(artifacts.program);
-    //
-    // // generate proof
-    // const proof = zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
-    //
-    // // export solidity verifier
-    // const verifier = zokratesProvider.exportSolidityVerifier(keypair.vk, "v1");
-    //
-  // } catch (error) {
-  //   console.log('here')
-  //   setMessage(error.message);
-  // }
+      try {
+        // Zokrates example code
+        const zokratesProvider = await initialize();
 
+        // source
+        const source = "def main(private field a) -> (field): return a * a";
 
-  try { // todo why is this not working as expected?
+        // compilation
+        const artifacts = zokratesProvider.compile(source);
 
-    // todo Zokrates example code without async await (error is Unhandled Rejection (TypeError): TextDecoder is not a constructor)
-    initialize().then((zokratesProvider) => {
-      console.log(zokratesProvider);
-      console.log(zokratesProvider.compile); // shows it is a function
-      const source = "def main(private field a) -> field: return a * a";
+        // computation
+        const {witness, output} = zokratesProvider.computeWitness(artifacts, ["2"]);
 
-      // compilation
-      const artifacts = zokratesProvider.compile(source);
+        // run setup
+        const keypair = zokratesProvider.setup(artifacts.program);
 
-      // computation
-      const { witness, output } = zokratesProvider.computeWitness(artifacts, ["2"]);
+        // generate proof
+        const proof = zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
 
-      // run setup
-      const keypair = zokratesProvider.setup(artifacts.program);
+        // export solidity verifier
+        const verifier = zokratesProvider.exportSolidityVerifier(keypair.vk, "v1");
 
-      // generate proof
-      const proof = zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
+        setMessage(`Witness: ${witness}, Output: ${output}`);
+        setProof(proof);
+      } catch (error) {
+        console.log('here')
+        setMessage(error.message);
+      }
+    }
+    getProvider();
 
-      // export solidity verifier
-      const verifier = zokratesProvider.exportSolidityVerifier(keypair.vk, "v1");
-      console.log(`Verifier:`);
-      console.log(verifier);
-    });
-  } catch (error) {
-    console.log('here')
-    setMessage(error.message);
-  }
+  }, [setMessage, setProof]);
+
 
   return (
-      <section className="container">
-        <h1>Zokrates</h1>
+      <section className="container" style={{padding: '50px'}}>
+        <h1 style={{textAlign: 'left'}}>Zokrates</h1>
 
-        <p>{message}</p>
+        <p style={{textAlign: 'left'}}>{message}</p>
+        <br/>
 
+        {proof ? (
+            <div style={{textAlign: 'left', wordWrap: 'break-word'}}>
+              <p>Inputs: {proof.inputs}</p>
+              <br/>
+              <p>Proof:</p>
+              <p>A: {proof.proof.a}</p>
+              <p>B: {proof.proof.b}</p>
+              <p>C: {proof.proof.c}</p>
+
+            </div>
+        ) : (
+            <p>Empty</p>
+        )}
 
       </section>
   );
