@@ -20,14 +20,15 @@ function PageTwo() {
     const setUp = async () => { // todo until 'suspense' https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
       try {
         // Get network provider and web3 instance.
-        const web3 = await getWeb3('https://rinkeby.infura.io/v3/', RINKEBY_TOKEN);
+        const web3 = await getWeb3();
+        // const web3 = await getWeb3('https://rinkeby.infura.io/v3/', RINKEBY_TOKEN);
         console.log(web3);
         setWeb3(web3);
         console.log(web3);
 
         // Use web3 to get the user's accounts.
         const accounts = await web3.eth.getAccounts();
-        setAccounts(accounts);
+        // setAccounts(accountsLocal); // IF WE SET IN ACCOUNTS AND GET FROM THERE, IT SEEMS TO GO INTO AN INFINITE LOOP..?
         console.log(accounts);
 
         // Get the contract instance.
@@ -40,7 +41,7 @@ function PageTwo() {
         setContract(contract);
 
         // Stores a given value, 5 by default.
-        await contract.methods.set(5).send({from: accounts[0]}); // this is getting from local not state
+        await contract.methods.set(1).send({from: accounts[0]});
 
         // Get the value from the contract to prove it worked.
         const response = await contract.methods.get().call();
@@ -70,9 +71,9 @@ function PageTwo() {
   return (
     <section className="container">
       <h1>MetaMask Transaction</h1>
-      <p>Need to hard reload for now.</p>
+      <p>Make sure to use Rinkeby and Metamask. You can get Rinkeby Eth here: https://faucet.rinkeby.io/.</p>
 
-      <div>The stored value is: {storageValue}</div>
+      <div>You sent us: {storageValue} RinkebyETH. Thanks.</div>
       <p>{message}</p>
     </section>
   );
