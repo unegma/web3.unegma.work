@@ -3,6 +3,7 @@ import SimpleStorageContract from "../../contracts-build/SimpleStorage.json"
 import getWeb3 from "../../getWeb3";
 
 function PageTwo() {
+  const RINKEBY_TOKEN = '25987f6d80e948518ed691183ca397ef';
   const [storageValue, setStorageValue] = useState(0);
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState(null);
@@ -19,7 +20,7 @@ function PageTwo() {
     const setUp = async () => { // todo until 'suspense' https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
       try {
         // Get network provider and web3 instance.
-        const web3 = await getWeb3();
+        const web3 = await getWeb3('https://rinkeby.infura.io/v3/', RINKEBY_TOKEN);
         console.log(web3);
         setWeb3(web3);
         console.log(web3);

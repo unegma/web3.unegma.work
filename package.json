@@ -13,7 +13,8 @@
     "truffle-compile-deploy": "truffle compile; truffle migrate",
     "truffle-console": "truffle console",
     "start": "cd client; npm start",
-    "deploy": "cd client; npm run-script build"
+    "deploy": "cd client; npm run-script build",
+    "deploy-rinkeby": "truffle compile; truffle migrate --network rinkeby"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,8 @@
   "homepage": "https://github.com/unegma/frontend-crud-template#readme",
   "dependencies": {
     "zokrates-js": "^1.0.26"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.2.0"
   }
 }
