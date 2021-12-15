@@ -13,7 +13,7 @@
     "truffle-compile-deploy": "truffle compile; truffle migrate",
     "truffle-console": "truffle console",
     "start": "cd client; npm start",
-    "deploy": "npm run build; aws --profile unegma s3 sync --delete ./build/ s3://web3.unegma.work/",
+    "deploy": "aws --profile unegma s3 sync --delete ./client/build s3://web3.unegma.work/",
     "deploy-rinkeby": "truffle compile; truffle migrate --network rinkeby"
   },
   "repository": {
